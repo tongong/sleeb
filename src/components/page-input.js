@@ -1,31 +1,17 @@
 const m = require("mithril");
-
-// maybe add a configuration option for this later
-const keys = ["j", "k", "l"];
+const keyBoxes = require("./key-boxes.js");
 
 module.exports = () => {
-    let active = [false, false, false];
+    let written = "";
+    let ongesture = (g) => {
+        written += g;
+    }
     return {
-        oncreate: () => {
-            document.onkeydown = (e) => {
-                if (!e.repeat && keys.indexOf(e.key) != -1) {
-                    active[keys.indexOf(e.key)] = true;
-                    m.redraw();
-                }
-            }
-            document.onkeyup = (e) => {
-                if (keys.indexOf(e.key) != -1) {
-                    active[keys.indexOf(e.key)] = false;
-                    m.redraw();
-                }
-            }
-        },
-        view: () => {
-            return m(".keyBoxWrap", [0, 1, 2].map(
-                i => m(".keyBox", {
-                    class: active[i] ? "keyBoxHighlight" : ""
-                })
-            ));
-        }
+        view: () => m("div",
+            m("div", {style: "height:40%;width:100%"}, written),
+            m("div", {style: "height:60%;width:100%"},
+                m(keyBoxes, {inputCallback: ongesture})
+            )
+        )
     }
 };

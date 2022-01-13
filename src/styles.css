@@ -58,6 +58,11 @@ h1 {
 
 
 /* key visualization boxes */
+.keyBoxWrapWrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
 .keyBoxWrap {
     height: 100%;
     width: 100%;
@@ -74,4 +79,9 @@ h1 {
 }
 .keyBoxHighlight {
     background-color: #f08700;
+}
+.keyBoxHint {
+    position: absolute;
+    top: 0;
+    right: 0;
 }

@@ -1,14 +1,63 @@
+/* GLOBAL */
+html {
+    width: 100vw;
+    overflow-x: hidden;
+}
 body {
     height: 100%;
     width: 100%;
-    margin: 0;
-    background-color: #eee;
-    color: #444;
-    font-family: "sans-serif";
-    font-size: 18px;
+    font-family: monospace, monospace;
+    background-color: #222;
+    color: #EEE;
     line-height: 1.6em;
+    font-size: 18px;
+    margin: 0;
+}
+a {
+    text-decoration: underline;
+    color: #f08700;
+}
+a:hover {
+    cursor: pointer;
+}
+.bold {
+    font-weight: bold;
+}
+h1 {
+    text-align: center;
+    line-height: 1.1em;
 }
 
+
+/* LAYOUT */
+.header {
+    margin: 0 auto;
+    height: 70px;
+    width: 90%;
+    max-width: 650px;
+    display: flex;
+    flex-direction: row;
+}
+.header > div {
+    flex: 1;
+    text-align: center;
+    line-height: 65px;
+}
+.main-content {
+    height: calc(100vh - 70px);
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.main-content > div {
+    height: calc(100vh - 90px);
+    margin: 20px auto;
+    margin-bottom: 0px;
+    width: 90%;
+    max-width: 1000px;
+}
+
+
+/* key visualization boxes */
 .keyBoxWrap {
     height: 100%;
     width: 100%;
@@ -16,15 +65,13 @@ body {
     justify-content: center;
     align-items: center;
 }
-
 .keyBox {
-    height: 200px;
-    width: 200px;
-    margin: 50px;
+    height: 100px;
+    width: 100px;
+    margin: 20px;
     border-radius: 10px;
     transition: background-color 0.1s
 }
-
 .keyBoxHighlight {
     background-color: #f08700;
 }

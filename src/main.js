@@ -1,33 +1,37 @@
 const m = require("mithril");
+const layout = require("./components/layout.js");
+const pageInput = require("./components/page-input.js");
+const pageTrainer = require("./components/page-trainer.js");
+const pageAbout = require("./components/page-about.js");
 
-// maybe add a configuration option for this later
-const keys = ["j", "k", "l"];
-
-function main() {
-    let active = [false, false, false];
-    return {
-        oncreate: function() {
-            document.onkeydown = (e) => {
-                if (!e.repeat && keys.indexOf(e.key) != -1) {
-                    active[keys.indexOf(e.key)] = true;
-                    m.redraw();
-                }
-            }
-            document.onkeyup = (e) => {
-                if (keys.indexOf(e.key) != -1) {
-                    active[keys.indexOf(e.key)] = false;
-                    m.redraw();
-                }
-            }
-        },
-        view: function() {
-            return m(".keyBoxWrap", [0, 1, 2].map(
-                i => m(".keyBox", {
-                    class: active[i] ? "keyBoxHighlight" : ""
-                })
-            ));
+// ugly workaround to fix scrolling on route change
+// https://github.com/MithrilJS/mithril.js/issues/1655
+m.mount(
+    // Don't attach to the document
+    document.createDocumentFragment(),
+    {
+        // We need a valid view for Mithril to behave
+        view : () => '',
+        // Will execute on the DOM ready phase of every draw
+        onupdate(){
+            const route = m.route.get();
+            if (route != this.route) scrollTo(0, 0);
+            this.route = route;
         }
     }
-};
+)
 
-m.mount(document.body, main);
+let resolver = (component) => ({
+    onmatch: () => {
+        return component;
+    },
+    render: (vnode) => {
+        return m(layout, {pages: ["input", "trainer", "about"]}, vnode);
+    }
+});
+
+m.route(document.body, "/input", {
+    "/input": resolver(pageInput),
+    "/trainer": resolver(pageTrainer),
+    "/about": resolver(pageAbout)
+});

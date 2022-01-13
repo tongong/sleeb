@@ -1,3 +1,6 @@
+const m = require("mithril");
+
+// maybe add a configuration option for this later
 const keys = ["j", "k", "l"];
 
 function main() {

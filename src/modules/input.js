@@ -17,8 +17,9 @@ function pressed2gesture(pressed) {
 // returns false if gestures are not enough to create a character
 function gestures2char(gestures) {
     if (gestures.length == 0) return false;
-    if (gestures.length == 1) {
-        switch (gestures[0]) {
+    let lastg = gestures[gestures.length - 1];
+    if (lastg >= 7) {
+        switch (lastg) {
             case 7:
                 return " ";
             case 8:

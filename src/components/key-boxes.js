@@ -10,6 +10,9 @@ module.exports = (vnode) => {
     let active = [false, false, false];
     // contains indizes of pressed key in the order in which they were pressed
     let pressed = [];
+    // if there was a point in time during this gesture where all keys were
+    // pressed simultaneously
+    let full = false;
     // gestures that are not processed yet
     let gestures = [];
     return {
@@ -20,6 +23,7 @@ module.exports = (vnode) => {
                     if (kcb) kcb(e);
                     if (index != -1) {
                         active[index] = true;
+                        if (active.every(e => e)) full = true;
                         pressed.push(index);
                         m.redraw();
                     }
@@ -30,8 +34,9 @@ module.exports = (vnode) => {
                 if (index != -1) {
                     active[index] = false;
                     if (active.every(e => !e)) {
-                        gestures.push(input.pressed2gesture(pressed));
+                        gestures.push(input.pressed2gesture(pressed, full));
                         pressed = [];
+                        full = false;
                         let charMaybe = input.gestures2char(gestures);
                         if (charMaybe) {
                             icb(charMaybe);

@@ -2,9 +2,11 @@
 const keys = ["j", "k", "l"];
 const hintkey = "h";
 const blindkey = "b";
+const deletechar = String.fromCharCode(127);
 
 /* pressed is an array of pressed indizes from one gesture */
-function pressed2gesture(pressed) {
+function pressed2gesture(pressed, full) {
+    if (full) return 10;
     if (pressed.length == 1) return pressed[0] + 7;
     else {
         let m = [
@@ -28,6 +30,8 @@ function gestures2char(gestures) {
                 return "-";
             case 9:
                 return ".";
+            case 10:
+                return deletechar;
             default:
                 return false;
         }
@@ -48,6 +52,7 @@ module.exports = {
     keys,
     hintkey,
     blindkey,
+    deletechar,
     pressed2gesture,
     gestures2char
 }

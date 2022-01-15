@@ -50,14 +50,24 @@ function getMaxIndex(valueFn, list) {
     return max;
 }
 
+// returns a list index, probabilities are weighted by the elements of the list
+function randomIndex(list) {
+    let sum = list.reduce((a,b) => a + b, 0);
+    let hit = Math.random() * sum;
+    let currSum = 0;
+    for (let i = 0; i < list.length; i++) {
+        currSum += list[i];
+        if (hit <= currSum) return i;
+    }
+}
+
 /* basic idea:
  * - remove previously tested character from the list of possible ones (so
  *   that no character is tested twice)
  * - if there are chars older than a week, test the oldest
- * - if there are chars with a score less than 20 test the one with minimal
- *   score
- * - else test a new char
- * - if all chars are known take the char with minimal score
+ * - if all known chars have a score greater than 20 test a new one
+ * - if all chars are known or some char has a score smaller than 20 test a
+ *   char randomly with weighted probability according to the score
  *
  * score:
  * - starts at 0
@@ -85,17 +95,14 @@ function getTest() {
     );
     let unknown = data.filter(e => e.numt == 0);
 
-    // console.log(known);
-    // console.log(unknown);
-
     if ((known.length != 0 && known[0].score < 20) || unknown.length == 0) {
-        return [known[0].c, known[0].hint];
+        let index = randomIndex(known.map(e => 1 / e.score || 1));
+        return [known[index].c, known[index].hint];
     }
     return [unknown[0].c, unknown[0].hint];
 }
 
 function saveTest(c, success) {
-    // console.log(c, success);
     let data = getData();
     let elem = data.find(e => e.c == c);
     elem.numt++;

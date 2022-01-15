@@ -1,11 +1,12 @@
 const m = require("mithril");
 const input = require("../modules/input.js");
 
-/* inputCallback:
- * expects one argument: char to input
+/* inputCallback: expects one argument: char to input
+ * keyCallback: can be used for event handling of other pressed keys
  */
 module.exports = (vnode) => {
-    let cb = vnode.attrs.inputCallback;
+    let icb = vnode.attrs.inputCallback;
+    let kcb = vnode.attrs.keyCallback;
     let active = [false, false, false];
     // contains indizes of pressed key in the order in which they were pressed
     let pressed = [];
@@ -15,10 +16,13 @@ module.exports = (vnode) => {
         oncreate: () => {
             document.onkeydown = (e) => {
                 let index = input.keys.indexOf(e.key);
-                if (!e.repeat && index != -1) {
-                    active[index] = true;
-                    pressed.push(index);
-                    m.redraw();
+                if (!e.repeat) {
+                    if (kcb) kcb(e);
+                    if (index != -1) {
+                        active[index] = true;
+                        pressed.push(index);
+                        m.redraw();
+                    }
                 }
             }
             document.onkeyup = (e) => {
@@ -30,7 +34,7 @@ module.exports = (vnode) => {
                         pressed = [];
                         let charMaybe = input.gestures2char(gestures);
                         if (charMaybe) {
-                            cb(charMaybe);
+                            icb(charMaybe);
                             gestures = [];
                         }
                     }

@@ -24,11 +24,18 @@ a:hover {
     font-weight: bold;
 }
 h1 {
+    margin-top: 20px;
     text-align: center;
     line-height: 1.1em;
 }
 .invisible {
     display: none !important;
+}
+kbd {
+    border: 1px solid #EEE;
+    border-bottom: 3px solid #EEE;
+    border-radius: 5px;
+    padding: 0.1rem;
 }
 
 
@@ -48,7 +55,7 @@ h1 {
 }
 .main-content {
     height: calc(100vh - 70px);
-    overflow-y: hidden;
+    overflow-y: scroll;
     overflow-x: hidden;
 }
 .main-content > div {

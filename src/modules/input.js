@@ -1,6 +1,7 @@
 // maybe add a configuration option for this later
 const keys = ["j", "k", "l"];
 const hintkey = "h";
+const blindkey = "b";
 
 /* pressed is an array of pressed indizes from one gesture */
 function pressed2gesture(pressed) {
@@ -46,6 +47,7 @@ function gestures2char(gestures) {
 module.exports = {
     keys,
     hintkey,
+    blindkey,
     pressed2gesture,
     gestures2char
 }

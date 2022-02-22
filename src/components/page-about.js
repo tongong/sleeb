@@ -3,7 +3,7 @@ const m = require("mithril");
 module.exports = () => {
     return {
         view: () => m("div",
-            m("h1", "sleepykeeb"),
+            m("h1", "sleeb"),
             m("p", "This is an experimental idea for a keyboard layout / input method with only three keys (labeled Key 1, Key 2 and Key 3)."),
             m("h2", "idea"),
             m("p", "The basic idea is to encode characters with movements / gestures using the three keys. A gesture made of two keys (you press the first key then the second one and release in any order) has three possibilities for the first key and two for the second one. There are thus 6 such gestures:"),

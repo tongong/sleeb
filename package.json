@@ -2,10 +2,6 @@
     "dependencies": {
         "mithril": "^2.0.4"
     },
-    "scripts": {
-        "dev": "parcel src/index.html",
-        "build": "parcel build src/index.html"
-    },
     "devDependencies": {
         "parcel": "^2.0.0-rc.0"
     }

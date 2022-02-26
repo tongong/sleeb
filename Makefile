@@ -2,6 +2,7 @@ dev:
 	npx parcel src/index.html
 
 build:
+	rm -r dist
 	npx parcel build src/index.html
 
 # abuse of git but whatever i just want github pages
